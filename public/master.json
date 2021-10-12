@@ -1,0 +1,12 @@
+{
+    "masterFile" : [
+        {
+            "name" : "Case1",
+            "sourceFileName" : "test1.js",
+            "renderFileName" : [
+                "test1.html",
+                "test2.html"
+            ]
+        }
+    ]
+}
