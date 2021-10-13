@@ -34,7 +34,7 @@ const LeftNav = ({ className: classNameProp, ...other }) => {
         const fileName = filePathArr[filePathArr.length-1];
          return {
           name: fileName,
-          url: `load/${renderFileName}`, // TODO need to verify path
+          url: `/load/${renderFileName}`, // TODO need to verify path
           key: fileName,
         };     
       });
