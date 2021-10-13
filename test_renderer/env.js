@@ -1,11 +1,12 @@
 const JSDOMEnvironment = require('jest-environment-jsdom-sixteen');
-const fs = require('fs');
+const writeTestFile = require('./writeTestFile');
 
 class CustomEnvironment extends JSDOMEnvironment {
     constructor(config, context) {
       super(config, context);
       this.testPath = context.testPath;
       this.docblockPragmas = context.docblockPragmas;
+      this.testResultData = {};
     }
   
     async setup(...other) {
@@ -16,12 +17,7 @@ class CustomEnvironment extends JSDOMEnvironment {
     }
   
     async teardown() {
-      // const test = this.dom.window.document;
-      // const test2 = this.dom.window.document.body;
-      // console.log(this.dom.window.document);
-      // await fs.writeFile('output.test.html', 
-      //   this.dom.window.document.body.innerHTML, 
-      //   err => err && console.log(err));
+      await writeTestFile(this.testPath, this.testResultData);
       console.log('teardown');
       await super.teardown();
     }
@@ -29,12 +25,21 @@ class CustomEnvironment extends JSDOMEnvironment {
     getVmContext() {
       return super.getVmContext();
     }
-  
+
+    currentTest(state) { return state.currentlyRunningTest.name; }
+
     async handleTestEvent(event, state) {
-      console.log('hello');
-      // console.log("event", event);
+      if (event.name === 'test_start') {
+        const testName = event.test.name;
+        const parent = event.test.parent.name;
+        this.testResultData[testName] = { testName, parent, errors: [] };
+      } else if (event.name === 'error') {
+        this.testResultData[this.currentTest(state)].errors.push(event.error);
+      } else if (event.name === 'test_fn_failure' || event.name === 'test_fn_success') {
+        this.testResultData[this.currentTest(state)].finalBody = this.dom.window.document.body.innerHTML;
+        this.testResultData[this.currentTest(state)].result = event.name === 'test_fn_success' ? 'success' : 'failure';
+      }
       // console.log("state", state);
-      // return super.handleTestEvent(event, state);
     }
   
     runScript(script) {
