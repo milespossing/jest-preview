@@ -1,12 +1,20 @@
 {
-    "masterFile" : [
+    "masterFile": [
         {
-            "name" : "Case1",
-            "sourceFileName" : "test1.js",
-            "renderFileName" : [
-                "test1.html",
-                "test2.html"
-            ]
+          "name": "Case1",
+          "sourceFileName": "test1.js",
+          "renderFileName": [
+            "testFiles/case1/test1.html",
+            "testFiles/case1/test2.html"
+          ]
+        },
+        {
+          "name": "Case2",
+          "sourceFileName": "test2.js",
+          "renderFileName": [
+            "testFiles/case2/test21.html",
+            "testFiles/case2/test22.html"
+          ]
         }
-    ]
+      ]
 }
