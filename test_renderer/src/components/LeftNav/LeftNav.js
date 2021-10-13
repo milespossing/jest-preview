@@ -1,33 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
 
 const LeftNav = ({ className: classNameProp, ...other }) => {
 
-  const getLinks = () => {
-    //TODO read from file 
-    const masterFile = {
-      "masterFile": [
-        {
-          "name": "Case1",
-          "sourceFileName": "test1.js",
-          "renderFileName": [
-            "testFiles/case1/test1.html",
-            "testFiles/case1/test2.html"
-          ]
-        },
-        {
-          "name": "Case12",
-          "sourceFileName": "test2.js",
-          "renderFileName": [
-            "testFiles/case1/test21.html",
-            "testFiles/case1/test22.html"
-          ]
-        }
-      ]
-    };
+  const [masterFile, setMasterFile] = useState(null);
 
+  useEffect(() => {
+    fetchMasterJSON().then(responseJson => {
+      setMasterFile(responseJson);
+    });
+  });
+
+
+  async function fetchMasterJSON() {
+    const response = await fetch('/master.json');
+    const responseJson = await response.json();
+    return responseJson;
+  }
+
+  
+  const getLinks = () => {
     var itemRows = [];
+    if (!masterFile) {
+      return null;
+    }
     masterFile.masterFile.forEach(testCase =>{
       const testCaseRows = testCase.renderFileName.map(renderFileName => {
         const filePathArr = renderFileName.split('/');
@@ -49,7 +46,6 @@ const LeftNav = ({ className: classNameProp, ...other }) => {
   };
 
   const links = getLinks();
-
   const _onRenderGroupHeader = (group) => {
     return <h3>{group.name}</h3>;
   };
