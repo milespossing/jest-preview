@@ -8,37 +8,6 @@ import styles from './LeftNav.style';
 import theme, { breakpoints } from '../../theme.style';
 
 const LeftNav = ({ isCollapsed, setIsCollapsed, className: classNameProp, ...other }) => {
-  const history = useHistory();
-  const location = useLocation();
-  const isSmallScreen = false;
-
-  const wrapperClassName = clsx(
-    styles.wrapper,
-    classNameProp,
-    {
-      [styles.wrapperExpanded]: !isCollapsed,
-    },
-    isSmallScreen && isCollapsed && styles.hidden,
-  );
-  const navClassName = clsx(
-    styles.nav,
-    {
-      [styles.expanded]: !isCollapsed,
-    },
-    isSmallScreen && isCollapsed && styles.hidden,
-  );
-
-  const handleLinkClick = (event, link) => {
-    if (!link.external) {
-      event.preventDefault();
-      history.push(link.url);
-    }
-
-    if (isSmallScreen) {
-      setIsCollapsed(true);
-    }
-  };
-
 
   const getLinks = () => {
     //TODO read from file 
@@ -63,73 +32,36 @@ const LeftNav = ({ isCollapsed, setIsCollapsed, className: classNameProp, ...oth
       ]
     };
 
-    const itemRows = [];
+    var itemRows = [];
     masterFile.masterFile.forEach(testCase =>{
-      const headerRow =  {
-        name: testCase.name,
-        url: ``,
-        key: testCase.name,
-      };
-      itemRows.push(headerRow);
-      
-      testCase.renderFileName.forEach(renderFileName => {
-        const testCaseRows = {
+      const testCaseRows = testCase.renderFileName.map(renderFileName => {
+         return {
           name: renderFileName,
           url: `testFiles/${testCase.name}/${renderFileName}`, // TODO need to verify path
           key: renderFileName,
-        };
-        itemRows.push(testCaseRows);
+        };     
       });
 
+      itemRows.push({
+        name: testCase.name,
+        links: testCaseRows
+      });
       
     });
-
-    
     return itemRows;
   };
 
   const links = getLinks();
 
-  const getSelectedKey = () => {
-    const pathParts = location.pathname.split('/');
-    if (pathParts[1] === '') {
-      return 'home';
-    }
-    if (pathParts[1] === 'add-adjustment') {
-      return 'adjustments';
-    }
-
-    const activeLink = links.find(link => pathParts[1] === link.key);
-    return activeLink ? activeLink.key : null;
+  const _onRenderGroupHeader = (group) => {
+    return <h3>{group.name}</h3>;
   };
 
   return (
-    <div className={wrapperClassName}>
+    <div>
       <Nav
-        onRenderLink={item => (
-          <div className="ms-Nav-linkText" data-testid={`left-nav-${item.name}`}>
-            {item.name}
-            {item.external && (
-              <>
-                {' '}
-                <FontIcon
-                  iconName={item.external.icon}
-                  className={item.external.class}
-                  style={{ color: !item.disabled && theme.palette.themePrimary }}
-                />
-              </>
-            )}
-          </div>
-        )}
-        selectedKey={getSelectedKey()}
-        className={navClassName}
-        onLinkClick={handleLinkClick}
-        groups={[
-          {
-            links: links.filter(l => l.url.trim() !== ''),
-          },
-        ]}
-        {...other}
+        onRenderGroupHeader={_onRenderGroupHeader}
+        groups={links}
       />
     </div>
   );
