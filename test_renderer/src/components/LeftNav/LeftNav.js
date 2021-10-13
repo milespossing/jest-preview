@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
-import clsx from 'clsx';
-import { useHistory, useLocation } from 'react-router-dom';
-import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
-import styles from './LeftNav.style';
-import theme, { breakpoints } from '../../theme.style';
 
-const LeftNav = ({ isCollapsed, setIsCollapsed, className: classNameProp, ...other }) => {
+const LeftNav = ({ className: classNameProp, ...other }) => {
 
   const getLinks = () => {
     //TODO read from file 
@@ -17,16 +12,16 @@ const LeftNav = ({ isCollapsed, setIsCollapsed, className: classNameProp, ...oth
           "name": "Case1",
           "sourceFileName": "test1.js",
           "renderFileName": [
-            "test1.html",
-            "test2.html"
+            "testFiles/case1/test1.html",
+            "testFiles/case1/test2.html"
           ]
         },
         {
           "name": "Case12",
           "sourceFileName": "test2.js",
           "renderFileName": [
-            "test21.html",
-            "test22.html"
+            "testFiles/case1/test21.html",
+            "testFiles/case1/test22.html"
           ]
         }
       ]
@@ -35,10 +30,12 @@ const LeftNav = ({ isCollapsed, setIsCollapsed, className: classNameProp, ...oth
     var itemRows = [];
     masterFile.masterFile.forEach(testCase =>{
       const testCaseRows = testCase.renderFileName.map(renderFileName => {
+        const filePathArr = renderFileName.split('/');
+        const fileName = filePathArr[filePathArr.length-1];
          return {
-          name: renderFileName,
-          url: `testFiles/${testCase.name}/${renderFileName}`, // TODO need to verify path
-          key: renderFileName,
+          name: fileName,
+          url: `load/${renderFileName}`, // TODO need to verify path
+          key: fileName,
         };     
       });
 
@@ -69,13 +66,10 @@ const LeftNav = ({ isCollapsed, setIsCollapsed, className: classNameProp, ...oth
 
 LeftNav.propTypes = {
   className: PropTypes.string,
-  isCollapsed: PropTypes.bool.isRequired,
-  setIsCollapsed: PropTypes.func,
 };
 
 LeftNav.defaultProps = {
-  className: '',
-  setIsCollapsed: () => {},
+  className: ''
 };
 
 export default LeftNav;

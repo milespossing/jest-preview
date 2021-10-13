@@ -1,18 +1,21 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import { Stack } from 'office-ui-fabric-react';
 import { breakpoints } from './theme.style';
 
 import './App.css';
 import LeftNav from './components/LeftNav/LeftNav';
+import TestResult from './pages/TestResult/TestResult';
 
 function App() {
-  const [isCollapsed, setIsCollapsed] = useState(window.innerWidth < breakpoints.lg);
   return (
     <div className="App">
-       <Stack horizontal>
-       <LeftNav isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-       </Stack>
+      <Stack horizontal>
+        <LeftNav />
+      
+        <TestResult />
+      </Stack>
     </div>
   );
 }
