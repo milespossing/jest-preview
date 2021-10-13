@@ -7,5 +7,21 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "jest": {
+    "coverageReporters": [
+      "cobertura",
+      "html"
+    ],
+    "moduleNameMapper": {
+      "office-ui-fabric-react/lib/(.*)$": "office-ui-fabric-react/lib-commonjs/$1"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!office-ui-fabric-react)"
+    ]
+  },
+  "dependencies": {
+    "jest-environment-jsdom-sixteen": "^2.0.0",
+    "jest-environment-node": "^27.2.5"
+  }
 }

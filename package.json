@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "jest-environment-jsdom-sixteen": "^2.0.0"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "testMatch": [
+    "<rootDir>/src/test/*.test.js"
+  ],
+  "testEnvironment": "./src/basicLogEnvironment.js",
+  "reporters": [
+    "default"
+  ]
+}
