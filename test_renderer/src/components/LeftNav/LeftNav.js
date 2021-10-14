@@ -25,7 +25,6 @@ const LeftNav = ({ masterFile, className: classNameProp, ...other }) => {
           name: fileName.split('testjs').pop(),// hack to show just the test name
           url: `/load/${renderFileName}`, // TODO need to verify path
           key: fileName,
-          className: styles.success,
           icon: iconVal
         };     
       });
@@ -33,14 +32,14 @@ const LeftNav = ({ masterFile, className: classNameProp, ...other }) => {
       itemRows.push({
         name: testCase.name,
         result: testCase.result,
-        links: testCaseRows
+        links: testCaseRows,   
       });
       
     });
-    return itemRows;
-    // return [{
-    //   links: itemRows
-    // }];
+    //return itemRows;
+    return [{
+      links: itemRows
+    }];
   };
 
   const links = getLinks();
