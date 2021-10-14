@@ -6,7 +6,7 @@ const path = require('path');
 
 const app = express();
 const PORT = 9000;
-const pathToTestOutput = path.join(__dirname, './test_json/')
+const pathToTestOutput = path.join(__dirname, './')
 
 app.use(cors());
 
@@ -34,4 +34,9 @@ io.on('connection', socket => {
   socket.on('jestCall', data => {
     io.emit('jestCall', data);
   });
+
+  // Handle broadcasting part
+  // socket.on('broadCast', function(data){
+  //   socket.broadcast.emit('broadCast', data);
+  // });
 });
