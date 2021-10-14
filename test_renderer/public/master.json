@@ -6,7 +6,9 @@
           "renderFileName": [
             "testFiles/case1/test1.html",
             "testFiles/case1/test2.html"
-          ]
+          ],
+          "result" : "success"
+
         },
         {
           "name": "Case2",
@@ -14,7 +16,8 @@
           "renderFileName": [
             "testFiles/case2/test21.html",
             "testFiles/case2/test22.html"
-          ]
+          ],
+          "result" : "failure"
         }
       ]
 }
