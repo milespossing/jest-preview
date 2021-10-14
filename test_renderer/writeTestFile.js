@@ -16,14 +16,22 @@ const writeTestFile = async (testFileName, testData) => {
     ...testResult,
   }));
   fileData.forEach((test) => {
-    const fileName = `${test.testFileName}.${test.testName}`;
-    const htmlFile = test.finalBody;
     const jsonFile = {
-      ...omit(test, "finalBody"),
-      finalHtml: getOutputPath(fileName) + ".html",
+      ...omit(test, ["finalBody", 'doms']),
+      files: [],
     };
+
+    test.doms.forEach((domHTML, index) => {
+      const fileName = `${test.testFileName}.${test.testName}.${index}`;
+      const htmlFile = domHTML;
+
+      jsonFile.files.push(fileName);
+
+      fs.writeFileSync(getOutputPath(fileName) + ".html", htmlFile);
+    });
+
+
     fs.writeFileSync(getOutputPath(fileName) + ".json", JSON.stringify(jsonFile));
-    fs.writeFileSync(getOutputPath(fileName) + ".html", htmlFile);
   });
 };
 

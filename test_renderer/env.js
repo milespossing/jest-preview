@@ -1,6 +1,6 @@
 const JSDOMEnvironment = require('jest-environment-jsdom-sixteen');
+const io = require('socket.io-client');
 const writeTestFile = require('./writeTestFile');
-const socket = io.connect('ws://localhost:9000');
 
 function createDiffDom(window) {
   global.window = window;
@@ -24,13 +24,18 @@ class CustomEnvironment extends JSDOMEnvironment {
 
       this.diffDom = createDiffDom(window);
       // connect to to the websocket server
+
+      this.socket = io('ws://localhost:9000');
+      this.socket.on('connect', () => {
+        console.log('jest client websocket connected')
+      })
     }
   
     async teardown() {
       await writeTestFile(this.testPath, this.testResultData);
       
       // disconnect from the websocket sever
-      socket.disconnect()
+      this.socket.disconnect()
 
       await super.teardown();
     }
@@ -45,14 +50,12 @@ class CustomEnvironment extends JSDOMEnvironment {
       if (event.name === 'test_start') {
         const testName = event.test.name;
         const parent = event.test.parent.name;
-        this.testResultData[testName] = { test: event.test, testName, parent, errors: [] };
-
+        this.testResultData[testName] = { test: event.test, testName, parent, errors: [], doms: [] };
 
         const { MutationObserver, document } = this.dom.window;
 
-        this.observer = new MutationObserver(() => this.domChanged(state));
+        this.observer = new MutationObserver(() => this.domChanged(this.testResultData[testName]));
         this.observer.observe(document.body, { subtree: true, childList: true, attributes: true, });
-
 
       } else if (event.name === 'error') {
         this.testResultData[this.currentTest(state)].errors.push(event.error);
@@ -64,33 +67,37 @@ class CustomEnvironment extends JSDOMEnvironment {
       }
     }
 
-    domChanged(state) {
-      const testResultData = this.testResultData[this.currentTest(state)];
+    domChanged(testResultData) {
+      // add to the list
+      testResultData.doms.push(this.dom.window.document.body.innerHTML);
+
+      const diff = this.getDiff(testResultData);
+      const {testPath} = this;
+      const {testName} = testResultData;
+   
+      const message = {
+        testPath,
+        testName,
+        diff
+      };
+
+      // post to websocket
+      this.socket.emit('jestCall', {
+        message
+      });
+    }
+
+    getDiff(testResultData) {
       let { lastHTML } = testResultData;
       const { document } = this.dom.window;
       const currentHTML = document.body.innerHTML;
-      let diff;
-
 
       if (!lastHTML) {
         lastHTML = '<div></div>';
       }
 
       testResultData.lastHTML = currentHTML;
-      const diff = this.diffDom.diff(lastHTML, currentHTML);
-
-      const message = {
-        test: {
-          filename: this.testPath,
-          name: testResultData.testName
-        },
-        diff
-      };
-
-      // post to websocket
-      socket.emit('jestCall', {
-        message
-      });
+      return this.diffDom.diff(lastHTML, currentHTML);
     }
   
     runScript(script) {
