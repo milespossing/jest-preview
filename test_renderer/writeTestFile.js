@@ -10,7 +10,7 @@ const getOutputPath = (fileName) =>
       outputPath + "\\" + cleanPath(fileName);
 
 const writeTestFile = async (testFileName, testData) => {
-  if (!fs.existsSync(outputPath)) fs.mkdir(outputPath, err => err && console.error(err));
+  if (!fs.existsSync(outputPath)) fs.mkdirSync(outputPath);
   const fileData = values(testData).map((testResult) => ({
     testFileName,
     ...testResult,
@@ -22,16 +22,8 @@ const writeTestFile = async (testFileName, testData) => {
       ...omit(test, "finalBody"),
       finalHtml: fileName + ".html",
     };
-    fs.writeFile(
-      getOutputPath(fileName) + ".json",
-      JSON.stringify(jsonFile),
-      (err) => err && console.log(err)
-    );
-    fs.writeFile(
-      getOutputPath(fileName) + ".html",
-      JSON.stringify(htmlFile),
-      (err) => err && console.log(err)
-    );
+    fs.writeFileSync(getOutputPath(fileName) + ".json", JSON.stringify(jsonFile));
+    fs.writeFileSync(getOutputPath(fileName) + ".html", htmlFile);
   });
 };
 
