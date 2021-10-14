@@ -20,7 +20,7 @@ const writeTestFile = async (testFileName, testData) => {
     const htmlFile = test.finalBody;
     const jsonFile = {
       ...omit(test, "finalBody"),
-      finalHtml: fileName + ".html",
+      finalHtml: getOutputPath(fileName) + ".html",
     };
     fs.writeFileSync(getOutputPath(fileName) + ".json", JSON.stringify(jsonFile));
     fs.writeFileSync(getOutputPath(fileName) + ".html", htmlFile);
