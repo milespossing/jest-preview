@@ -1,4 +1,5 @@
 const JSDOMEnvironment = require('jest-environment-jsdom-sixteen');
+const {prettyDOM} = require('@testing-library/react')
 const io = require('socket.io-client');
 const writeTestFile = require('./writeTestFile');
 
@@ -9,6 +10,34 @@ function createDiffDom(window) {
   const { DiffDOM } = require("diff-dom")
 
   return new DiffDOM({ document: window.document });
+}
+
+let printed =false;
+function getAllStyles(document) {
+  const css = [];
+
+  if (!printed) {
+    console.log('dom', document.head.toString() ,);
+    printed = true;
+  }
+  for (let i=0; i<document.styleSheets.length; i++)
+  {
+      const sheet = document.styleSheets[i];
+      const rules = ('cssRules' in sheet)? sheet.cssRules : sheet.rules;
+      if (rules)
+      {
+          css.push('\n/* Stylesheet : '+(sheet.href||'[inline styles]')+' */');
+          for (let j=0; j<rules.length; j++)
+          {
+              const rule = rules[j];
+              if ('cssText' in rule)
+                  css.push(rule.cssText);
+              else
+                  css.push(rule.selectorText+' {\n'+rule.style.cssText+'\n}\n');
+          }
+      }
+  }
+  return css.join('\n');
 }
 
 class CustomEnvironment extends JSDOMEnvironment {
@@ -69,7 +98,16 @@ class CustomEnvironment extends JSDOMEnvironment {
 
     domChanged(testResultData) {
       // add to the list
-      testResultData.doms.push(this.dom.window.document.body.innerHTML);
+      const styles = getAllStyles(this.dom.window.document);
+      const html = this.dom.window.document.body.innerHTML;
+      const dom = `
+        <style>
+          ${styles}
+        </style>
+        ${html}
+      `;
+
+      testResultData.doms.push(dom);
 
       const diff = this.getDiff(testResultData);
       const {testPath} = this;

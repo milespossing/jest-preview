@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "jest-circus": "^27.2.5",
+    "jest-transform-css": "^2.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^4.0.3"
@@ -26,7 +27,12 @@
     "extends": "react-app"
   },
   "jest": {
-    "resetMocks": false
+    "resetMocks": false,
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.css$": "jest-transform-css"
+    },
+    "moduleNameMapper": {}
   },
   "browserslist": {
     "production": [

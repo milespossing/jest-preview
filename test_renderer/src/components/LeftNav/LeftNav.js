@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Nav } from 'office-ui-fabric-react';
+import { Nav, Stack } from 'office-ui-fabric-react';
 import styles from './LeftNav.style';
 import { initializeIcons } from '@uifabric/icons';
 import { useHistory } from 'react-router-dom';
@@ -58,13 +58,13 @@ const LeftNav = ({ masterFile, className: classNameProp, ...other }) => {
   };
 
   return (
-    <div>
+    <Stack.Item>
       <Nav
         onRenderGroupHeader={_onRenderGroupHeader}
         groups={links}
         onLinkClick={handleLinkClick}
       />
-    </div>
+    </Stack.Item>
   );
 };
 

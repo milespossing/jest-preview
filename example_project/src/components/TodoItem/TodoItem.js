@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './TodoItem.module.css'
+import './TodoItem.css'
 
 const TodoItem = ({ todo, removeHandler, updateTodo }) => {
     return (
-        <div className={styles.itemContainer}>
+        <div className='itemContainer'>
             <div>
                 <input 
                     type='checkbox' 
@@ -15,12 +15,12 @@ const TodoItem = ({ todo, removeHandler, updateTodo }) => {
                 <label 
                     htmlFor={`checkbox-${todo.id}`}
                     onClick={() => updateTodo(todo.id)} 
-                    className={todo.completed ? styles.completed : ''} 
+                    className={todo.completed ? 'completed' : ''} 
                 >
                     {todo.title}
                 </label>
             </div>
-            <button className={styles.closeBtn} data-testid={`close-btn-${todo.id}`} onClick={() => removeHandler(todo.id)}>X</button>
+            <button className={'closeBtn'} data-testid={`close-btn-${todo.id}`} onClick={() => removeHandler(todo.id)}>X</button>
         </div>
     );
 }
