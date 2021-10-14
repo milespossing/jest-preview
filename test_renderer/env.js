@@ -1,6 +1,16 @@
 const JSDOMEnvironment = require('jest-environment-jsdom-sixteen');
 const writeTestFile = require('./writeTestFile');
 
+function createDiffDom(window) {
+
+  global.window = window;
+      global.HTMLElement = window.HTMLElement;
+  
+      const { DiffDOM } = require("diff-dom")
+  
+      return new DiffDOM({ document: window.document });
+}
+
 class CustomEnvironment extends JSDOMEnvironment {
     constructor(config, context) {
       super(config, context);
@@ -10,15 +20,23 @@ class CustomEnvironment extends JSDOMEnvironment {
     }
   
     async setup(...other) {
-      console.log('setup');
-      console.log(other);
       await super.setup();
+
+
+      const { window } = this.dom;
+
+      global.window = window;
+      global.HTMLElement = window.HTMLElement;
+  
+      const { DiffDOM } = require("diff-dom")
+  
+      this.diffDom = new DiffDOM({ document: window.document });
+
       // console.log(this.dom);
     }
   
     async teardown() {
       await writeTestFile(this.testPath, this.testResultData);
-      console.log('teardown');
       await super.teardown();
     }
   
@@ -39,7 +57,6 @@ class CustomEnvironment extends JSDOMEnvironment {
         this.testResultData[this.currentTest(state)].finalBody = this.dom.window.document.body.innerHTML;
         this.testResultData[this.currentTest(state)].result = event.name === 'test_fn_success' ? 'success' : 'failure';
       }
-      // console.log("state", state);
     }
   
     runScript(script) {
