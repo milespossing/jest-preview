@@ -1,0 +1,632 @@
+[
+  {
+    "action": "addElement",
+    "route": [
+      0
+    ],
+    "element": {
+      "nodeName": "DIV",
+      "attributes": {
+        "class": "App"
+      },
+      "childNodes": [
+        {
+          "nodeName": "H1",
+          "attributes": {
+            "class": "header"
+          },
+          "childNodes": [
+            {
+              "nodeName": "#text",
+              "data": "My todo list"
+            }
+          ]
+        },
+        {
+          "nodeName": "#text",
+          "data": "Loading"
+        },
+        {
+          "nodeName": "DIV",
+          "attributes": {
+            "class": "add-todo-form"
+          },
+          "childNodes": [
+            {
+              "nodeName": "FORM",
+              "attributes": {},
+              "childNodes": [
+                {
+                  "nodeName": "INPUT",
+                  "attributes": {
+                    "type": "text"
+                  }
+                },
+                {
+                  "nodeName": "BUTTON",
+                  "attributes": {
+                    "type": "submit"
+                  },
+                  "childNodes": [
+                    {
+                      "nodeName": "#text",
+                      "data": "Add new todo"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "action": "removeTextElement",
+    "route": [
+      0,
+      1
+    ],
+    "value": "Loading"
+  },
+  {
+    "action": "addElement",
+    "route": [
+      0,
+      1
+    ],
+    "element": {
+      "nodeName": "DIV",
+      "attributes": {
+        "class": "itemContainer"
+      },
+      "childNodes": [
+        {
+          "nodeName": "DIV",
+          "attributes": {},
+          "childNodes": [
+            {
+              "nodeName": "INPUT",
+              "attributes": {
+                "type": "checkbox",
+                "name": "checkbox-1",
+                "data-testid": "checkbox-1"
+              }
+            },
+            {
+              "nodeName": "LABEL",
+              "attributes": {
+                "for": "checkbox-1",
+                "class": ""
+              },
+              "childNodes": [
+                {
+                  "nodeName": "#text",
+                  "data": "Eat breakfast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeName": "BUTTON",
+          "attributes": {
+            "class": "closeBtn",
+            "data-testid": "close-btn-1"
+          },
+          "childNodes": [
+            {
+              "nodeName": "#text",
+              "data": "X"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "action": "addElement",
+    "route": [
+      0,
+      2
+    ],
+    "element": {
+      "nodeName": "DIV",
+      "attributes": {
+        "class": "itemContainer"
+      },
+      "childNodes": [
+        {
+          "nodeName": "DIV",
+          "attributes": {},
+          "childNodes": [
+            {
+              "nodeName": "INPUT",
+              "attributes": {
+                "type": "checkbox",
+                "name": "checkbox-2",
+                "data-testid": "checkbox-2"
+              }
+            },
+            {
+              "nodeName": "LABEL",
+              "attributes": {
+                "for": "checkbox-2",
+                "class": ""
+              },
+              "childNodes": [
+                {
+                  "nodeName": "#text",
+                  "data": "Do laundry"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeName": "BUTTON",
+          "attributes": {
+            "class": "closeBtn",
+            "data-testid": "close-btn-2"
+          },
+          "childNodes": [
+            {
+              "nodeName": "#text",
+              "data": "X"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "action": "addElement",
+    "route": [
+      0,
+      3
+    ],
+    "element": {
+      "nodeName": "DIV",
+      "attributes": {
+        "class": "itemContainer"
+      },
+      "childNodes": [
+        {
+          "nodeName": "DIV",
+          "attributes": {},
+          "childNodes": [
+            {
+              "nodeName": "INPUT",
+              "attributes": {
+                "type": "checkbox",
+                "name": "checkbox-3",
+                "data-testid": "checkbox-3"
+              }
+            },
+            {
+              "nodeName": "LABEL",
+              "attributes": {
+                "for": "checkbox-3",
+                "class": ""
+              },
+              "childNodes": [
+                {
+                  "nodeName": "#text",
+                  "data": "Take out the trash"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeName": "BUTTON",
+          "attributes": {
+            "class": "closeBtn",
+            "data-testid": "close-btn-3"
+          },
+          "childNodes": [
+            {
+              "nodeName": "#text",
+              "data": "X"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "action": "addElement",
+    "route": [
+      0,
+      4
+    ],
+    "element": {
+      "nodeName": "DIV",
+      "attributes": {
+        "class": "itemContainer"
+      },
+      "childNodes": [
+        {
+          "nodeName": "DIV",
+          "attributes": {},
+          "childNodes": [
+            {
+              "nodeName": "INPUT",
+              "attributes": {
+                "type": "checkbox",
+                "name": "checkbox-4",
+                "data-testid": "checkbox-4",
+                "checked": ""
+              }
+            },
+            {
+              "nodeName": "LABEL",
+              "attributes": {
+                "for": "checkbox-4",
+                "class": "completed"
+              },
+              "childNodes": [
+                {
+                  "nodeName": "#text",
+                  "data": "Write a blog post"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeName": "BUTTON",
+          "attributes": {
+            "class": "closeBtn",
+            "data-testid": "close-btn-4"
+          },
+          "childNodes": [
+            {
+              "nodeName": "#text",
+              "data": "X"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "action": "addElement",
+    "route": [
+      0,
+      5
+    ],
+    "element": {
+      "nodeName": "DIV",
+      "attributes": {
+        "class": "itemContainer"
+      },
+      "childNodes": [
+        {
+          "nodeName": "DIV",
+          "attributes": {},
+          "childNodes": [
+            {
+              "nodeName": "INPUT",
+              "attributes": {
+                "type": "checkbox",
+                "name": "checkbox-5",
+                "data-testid": "checkbox-5"
+              }
+            },
+            {
+              "nodeName": "LABEL",
+              "attributes": {
+                "for": "checkbox-5",
+                "class": ""
+              },
+              "childNodes": [
+                {
+                  "nodeName": "#text",
+                  "data": "Go out for a walk"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeName": "BUTTON",
+          "attributes": {
+            "class": "closeBtn",
+            "data-testid": "close-btn-5"
+          },
+          "childNodes": [
+            {
+              "nodeName": "#text",
+              "data": "X"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "action": "removeTextElement",
+    "route": [
+      0,
+      1
+    ],
+    "value": "Loading"
+  },
+  {
+    "action": "addElement",
+    "route": [
+      0,
+      1
+    ],
+    "element": {
+      "nodeName": "DIV",
+      "attributes": {
+        "class": "itemContainer"
+      },
+      "childNodes": [
+        {
+          "nodeName": "DIV",
+          "attributes": {},
+          "childNodes": [
+            {
+              "nodeName": "INPUT",
+              "attributes": {
+                "type": "checkbox",
+                "name": "checkbox-1",
+                "data-testid": "checkbox-1"
+              }
+            },
+            {
+              "nodeName": "LABEL",
+              "attributes": {
+                "for": "checkbox-1",
+                "class": "completed"
+              },
+              "childNodes": [
+                {
+                  "nodeName": "#text",
+                  "data": "Eat breakfast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeName": "BUTTON",
+          "attributes": {
+            "class": "closeBtn",
+            "data-testid": "close-btn-1"
+          },
+          "childNodes": [
+            {
+              "nodeName": "#text",
+              "data": "X"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "action": "addElement",
+    "route": [
+      0,
+      2
+    ],
+    "element": {
+      "nodeName": "DIV",
+      "attributes": {
+        "class": "itemContainer"
+      },
+      "childNodes": [
+        {
+          "nodeName": "DIV",
+          "attributes": {},
+          "childNodes": [
+            {
+              "nodeName": "INPUT",
+              "attributes": {
+                "type": "checkbox",
+                "name": "checkbox-2",
+                "data-testid": "checkbox-2"
+              }
+            },
+            {
+              "nodeName": "LABEL",
+              "attributes": {
+                "for": "checkbox-2",
+                "class": ""
+              },
+              "childNodes": [
+                {
+                  "nodeName": "#text",
+                  "data": "Do laundry"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeName": "BUTTON",
+          "attributes": {
+            "class": "closeBtn",
+            "data-testid": "close-btn-2"
+          },
+          "childNodes": [
+            {
+              "nodeName": "#text",
+              "data": "X"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "action": "addElement",
+    "route": [
+      0,
+      3
+    ],
+    "element": {
+      "nodeName": "DIV",
+      "attributes": {
+        "class": "itemContainer"
+      },
+      "childNodes": [
+        {
+          "nodeName": "DIV",
+          "attributes": {},
+          "childNodes": [
+            {
+              "nodeName": "INPUT",
+              "attributes": {
+                "type": "checkbox",
+                "name": "checkbox-3",
+                "data-testid": "checkbox-3"
+              }
+            },
+            {
+              "nodeName": "LABEL",
+              "attributes": {
+                "for": "checkbox-3",
+                "class": ""
+              },
+              "childNodes": [
+                {
+                  "nodeName": "#text",
+                  "data": "Take out the trash"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeName": "BUTTON",
+          "attributes": {
+            "class": "closeBtn",
+            "data-testid": "close-btn-3"
+          },
+          "childNodes": [
+            {
+              "nodeName": "#text",
+              "data": "X"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "action": "addElement",
+    "route": [
+      0,
+      4
+    ],
+    "element": {
+      "nodeName": "DIV",
+      "attributes": {
+        "class": "itemContainer"
+      },
+      "childNodes": [
+        {
+          "nodeName": "DIV",
+          "attributes": {},
+          "childNodes": [
+            {
+              "nodeName": "INPUT",
+              "attributes": {
+                "type": "checkbox",
+                "name": "checkbox-4",
+                "data-testid": "checkbox-4",
+                "checked": ""
+              }
+            },
+            {
+              "nodeName": "LABEL",
+              "attributes": {
+                "for": "checkbox-4",
+                "class": "completed"
+              },
+              "childNodes": [
+                {
+                  "nodeName": "#text",
+                  "data": "Write a blog post"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeName": "BUTTON",
+          "attributes": {
+            "class": "closeBtn",
+            "data-testid": "close-btn-4"
+          },
+          "childNodes": [
+            {
+              "nodeName": "#text",
+              "data": "X"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "action": "addElement",
+    "route": [
+      0,
+      5
+    ],
+    "element": {
+      "nodeName": "DIV",
+      "attributes": {
+        "class": "itemContainer"
+      },
+      "childNodes": [
+        {
+          "nodeName": "DIV",
+          "attributes": {},
+          "childNodes": [
+            {
+              "nodeName": "INPUT",
+              "attributes": {
+                "type": "checkbox",
+                "name": "checkbox-5",
+                "data-testid": "checkbox-5"
+              }
+            },
+            {
+              "nodeName": "LABEL",
+              "attributes": {
+                "for": "checkbox-5",
+                "class": ""
+              },
+              "childNodes": [
+                {
+                  "nodeName": "#text",
+                  "data": "Go out for a walk"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeName": "BUTTON",
+          "attributes": {
+            "class": "closeBtn",
+            "data-testid": "close-btn-5"
+          },
+          "childNodes": [
+            {
+              "nodeName": "#text",
+              "data": "X"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
