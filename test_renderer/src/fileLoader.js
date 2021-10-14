@@ -18,6 +18,9 @@ const buildMasterFile = (testData, dest) => {
 };
 
 const loadFiles = (sourceDir, destDir) => {
+  if (!fs.existsSync(destDir)) fs.mkdirSync(destDir);
+  if (!fs.existsSync(destDir + '\\testFiles')) fs.mkdirSync(destDir + '\\testFiles');
+
   const jsonFiles = fs
     .readdirSync(sourceDir)
     .filter((f) => f.match(/.+\.json$/));
