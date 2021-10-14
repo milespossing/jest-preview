@@ -18,21 +18,14 @@ const buildMasterFile = (testData, dest) => {
 };
 
 const loadFiles = (sourceDir, destDir) => {
-  console.log(sourceDir, destDir);
-  const printMap = (o) => {
-    console.log(o);
-    return o;
-  };
   const jsonFiles = fs
     .readdirSync(sourceDir)
     .filter((f) => f.match(/.+\.json$/));
   const testData = jsonFiles
     .map((f) => sourceDir + "/" + f)
-    .map((f) => JSON.parse(fs.readFileSync(f)))
-    .map(printMap);
+    .map((f) => JSON.parse(fs.readFileSync(f)));
   testData
     .map((data) => data.finalHtml)
-    .map(printMap)
     .forEach((n) => fs.copyFileSync(n, getMoveFileName(n, destDir + '\\testFiles')));
   const masterFile = JSON.stringify(buildMasterFile(testData, destDir + '\\testFiles'));
   fs.writeFileSync(destDir + "/" + 'master.json', masterFile);
