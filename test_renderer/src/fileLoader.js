@@ -11,7 +11,7 @@ const buildMasterFile = (testData, dest) => {
     masterFile: testData.map((data) => ({
       name: data.testName,
       sourceFileName: data.testFileName,
-      renderFileName: [getPublicFileName(data.finalHtml, dest)],
+      renderFileName: data.files.map(filename => getPublicFileName(filename, dest)),
       result: data.result,
     })),
   };
@@ -28,8 +28,14 @@ const loadFiles = (sourceDir, destDir) => {
     .map((f) => sourceDir + "/" + f)
     .map((f) => JSON.parse(fs.readFileSync(f)));
   testData
-    .map((data) => data.finalHtml)
-    .forEach((n) => fs.copyFileSync(n, getMoveFileName(n, destDir + '\\testFiles')));
+    .forEach((testData) => {
+      testData.files.forEach(filename => {
+        fs.copyFileSync(filename, getMoveFileName(filename, destDir + '\\testFiles'))
+      })
+    });
+
+// console.log('testData', JSON.stringify(testData, null, 2));
+
   const masterFile = JSON.stringify(buildMasterFile(testData, destDir + '\\testFiles'));
   fs.writeFileSync(destDir + "/" + 'master.json', masterFile);
 };

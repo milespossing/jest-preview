@@ -22,20 +22,20 @@ class CustomEnvironment extends JSDOMEnvironment {
     async setup(...other) {
       await super.setup();
 
-      this.diffDom = createDiffDom(window);
+      this.diffDom = createDiffDom(this.dom.window);
       // connect to to the websocket server
 
-      this.socket = io('ws://localhost:9000');
-      this.socket.on('connect', () => {
-        console.log('jest client websocket connected')
-      })
+      // this.socket = io.connect('ws://localhost:9000');
+      // this.socket.on('connect', () => {
+      //   console.log('jest client websocket connected')
+      // })
     }
   
     async teardown() {
       await writeTestFile(this.testPath, this.testResultData);
       
       // disconnect from the websocket sever
-      this.socket.disconnect()
+      // this.socket.disconnect()
 
       await super.teardown();
     }
@@ -50,7 +50,7 @@ class CustomEnvironment extends JSDOMEnvironment {
       if (event.name === 'test_start') {
         const testName = event.test.name;
         const parent = event.test.parent.name;
-        this.testResultData[testName] = { test: event.test, testName, parent, errors: [], doms: [] };
+        this.testResultData[testName] = { testName, parent, errors: [], doms: [] };
 
         const { MutationObserver, document } = this.dom.window;
 
@@ -82,9 +82,9 @@ class CustomEnvironment extends JSDOMEnvironment {
       };
 
       // post to websocket
-      this.socket.emit('jestCall', {
-        message
-      });
+      // this.socket.emit('jestCall', {
+      //   message
+      // });
     }
 
     getDiff(testResultData) {

@@ -1,10 +1,11 @@
 const fs = require("fs");
+const path = require('path');
 const { values, omit } = require("lodash");
 
 const outputPath = "__testoutput__";
 
 const cleanPath = (dirtyString) =>
-  dirtyString.replace(/[\/\\|&;$%@"<>()+.,:]/g, "");
+  dirtyString.replace(/[\/\\|&;$%@"<>()+,:]/g, "");
 
 const getOutputPath = (fileName) => 
       outputPath + "\\" + cleanPath(fileName);
@@ -22,16 +23,17 @@ const writeTestFile = async (testFileName, testData) => {
     };
 
     test.doms.forEach((domHTML, index) => {
-      const fileName = `${test.testFileName}.${test.testName}.${index}`;
+      // const fileName = path.join(test.testFileName,'.', test.testName, '.', String(index), '.html');
+      const fileName = getOutputPath(path.join(test.testFileName,'.', test.testName, '.', String(index))) + '.html';
       const htmlFile = domHTML;
 
       jsonFile.files.push(fileName);
 
-      fs.writeFileSync(getOutputPath(fileName) + ".html", htmlFile);
+      fs.writeFileSync(fileName, htmlFile);
     });
 
 
-    fs.writeFileSync(getOutputPath(fileName) + ".json", JSON.stringify(jsonFile));
+    fs.writeFileSync(getOutputPath(test.testFileName,'.',test.testName) +  '.json', JSON.stringify(jsonFile));
   });
 };
 

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Nav } from 'office-ui-fabric-react/lib/Nav';
-import { FontIcon } from 'office-ui-fabric-react/lib/Icon';
+import { Nav } from 'office-ui-fabric-react';
 import styles from './LeftNav.style';
 import { initializeIcons } from '@uifabric/icons';
 import { useHistory } from 'react-router-dom';
