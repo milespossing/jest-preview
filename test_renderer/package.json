@@ -9,6 +9,7 @@
     "clsx": "^1.1.0",
     "connected-react-router": "^6.6.1",
     "history": "^4.10.1",
+    "jest-environment-jsdom-sixteen": "^2.0.0",
     "lodash": "^4.17.21",
     "office-ui-fabric-core": "^11.0.0",
     "office-ui-fabric-react": "^7.170.3",
