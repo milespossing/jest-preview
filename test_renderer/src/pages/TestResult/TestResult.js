@@ -10,7 +10,7 @@ const TestResult = () => {
   const iframeUrl = pathname.replaceAll('/load', '');
   return (
     <div>
-      <iframe style={{ width: '100%', height: '100%' }}
+      <iframe id="test-result-iframe" style={{ width: '100%', height: '100%' }}
         src={iframeUrl}
         frameBorder="0"
       />
