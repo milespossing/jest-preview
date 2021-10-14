@@ -1,5 +1,6 @@
 const JSDOMEnvironment = require('jest-environment-jsdom-sixteen');
 const writeTestFile = require('./writeTestFile');
+const socket = io.connect('ws://localhost:9000');
 
 function createDiffDom(window) {
   global.window = window;
@@ -29,6 +30,7 @@ class CustomEnvironment extends JSDOMEnvironment {
       await writeTestFile(this.testPath, this.testResultData);
       
       // disconnect from the websocket sever
+      socket.disconnect()
 
       await super.teardown();
     }
@@ -85,7 +87,10 @@ class CustomEnvironment extends JSDOMEnvironment {
         diff
       };
 
-      // TODO: post to websocket
+      // post to websocket
+      socket.emit('jestCall', {
+        message
+      });
     }
   
     runScript(script) {
