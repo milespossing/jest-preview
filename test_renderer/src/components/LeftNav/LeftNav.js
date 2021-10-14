@@ -12,7 +12,7 @@ const LeftNav = ({ className: classNameProp, ...other }) => {
     fetchMasterJSON().then(responseJson => {
       setMasterFile(responseJson);
     });
-  });
+  },[]);
 
 
   async function fetchMasterJSON() {
