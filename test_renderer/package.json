@@ -17,6 +17,7 @@
     "lodash": "^4.17.21",
     "office-ui-fabric-core": "^11.0.0",
     "office-ui-fabric-react": "^7.170.3",
+    "@fluentui/react-icons": "^0.3.9",
     "prop-types": "^15.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

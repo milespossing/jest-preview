@@ -129,4 +129,10 @@ export default mergeStyleSets({
     fontSize: pxToRem(16),
     color: theme.palette.themePrimary,
   },
+  failure: {
+    color: theme.palette.accentError,
+  },
+  success: {
+    color: theme.palette.green,
+  }
 });
