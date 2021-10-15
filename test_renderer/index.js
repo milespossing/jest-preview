@@ -7,3 +7,4 @@ const fileLoader = require('./src/fileLoader');
 fileLoader('__testoutput__', 'node_modules/jest-preview/public');
 
 // start the server
+require('./server');

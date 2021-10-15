@@ -1,5 +1,4 @@
 const JSDOMEnvironment = require('jest-environment-jsdom-sixteen');
-const {prettyDOM} = require('@testing-library/react')
 const io = require('socket.io-client');
 const writeTestFile = require('./writeTestFile');
 
@@ -16,10 +15,6 @@ let printed =false;
 function getAllStyles(document) {
   const css = [];
 
-  if (!printed) {
-    console.log('dom', document.head.toString() ,);
-    printed = true;
-  }
   for (let i=0; i<document.styleSheets.length; i++)
   {
       const sheet = document.styleSheets[i];
@@ -40,6 +35,18 @@ function getAllStyles(document) {
   return css.join('\n');
 }
 
+function createSocket() {
+  return new Promise((resolve, reject) => {
+    const socket = io.connect('ws://localhost:9000');
+    socket.on('connect', () => {
+      resolve(socket);
+    });
+    socket.on('connect_error', (error) => {
+      reject(error);
+    });
+  })
+}
+
 class CustomEnvironment extends JSDOMEnvironment {
     constructor(config, context) {
       super(config, context);
@@ -54,17 +61,19 @@ class CustomEnvironment extends JSDOMEnvironment {
       this.diffDom = createDiffDom(this.dom.window);
       // connect to to the websocket server
 
-      // this.socket = io.connect('ws://localhost:9000');
-      // this.socket.on('connect', () => {
-      //   console.log('jest client websocket connected')
-      // })
+      try {
+        this.socket = await createSocket();
+        this.socket.emit('testSetup', this.testPath);
+      } catch (error) {
+        console.log('live previewer is not available', error);
+      }
     }
   
     async teardown() {
       await writeTestFile(this.testPath, this.testResultData);
       
       // disconnect from the websocket sever
-      // this.socket.disconnect()
+      this.socket?.disconnect()
 
       await super.teardown();
     }
@@ -116,13 +125,13 @@ class CustomEnvironment extends JSDOMEnvironment {
       const message = {
         testPath,
         testName,
-        diff
+        diff,
+        html: dom
       };
 
       // post to websocket
-      // this.socket.emit('jestCall', {
-      //   message
-      // });
+      // console.log(testName);
+      this.socket?.emit('domChanged', message);
     }
 
     getDiff(testResultData) {

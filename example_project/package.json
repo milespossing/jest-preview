@@ -20,7 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test -i --env=jest-preview/env --testRunner=jest-circus/runner",
+    "test": "react-scripts test -i --env=jest-preview/env --testRunner=jest-circus/runner --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

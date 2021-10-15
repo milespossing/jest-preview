@@ -31,7 +31,7 @@ function App() {
   return (
     <div className="App">
       <Stack horizontal>
-        <LeftNav masterFile = {masterFile} />
+        <LeftNav masterFile={masterFile} />
         <TestResult />
         
       </Stack>
